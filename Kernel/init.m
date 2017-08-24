@@ -1,17 +1,9 @@
+
 Needs["Streaming`"]
 
 Block[{$Path = Prepend[$Path, DirectoryName @ DirectoryName @ $InputFileName]},
     Quiet @ Get["Interfaces`"]
 ]
-
-wrongNames =
-    Flatten @ StringCases[
-		    Flatten @ Map[
-            Names["Streaming`*`*`"<> # ]&,
-            Names["Streaming`DataStructures`Interfaces`*"]
-        ],
-		    __ ~~ "PackagePrivate`"~~__
-	  ];
 
 Scan[
     ToExpression[
@@ -26,7 +18,13 @@ Scan[
 			      HoldAll
 		    ]
 	 ]&,
-	 wrongNames
+   Flatten @ StringCases[
+       Flatten @ Map[
+           Names["Streaming`*`*`"<> # ]&,
+           Names["Streaming`DataStructures`Interfaces`*"]
+       ],
+       __ ~~ "PackagePrivate`"~~__
+   ]
 ];
 
 Streaming`Components`DataChunk`DataChunk /: Streaming`Objects`Constructor[
