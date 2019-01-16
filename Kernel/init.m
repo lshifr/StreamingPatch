@@ -107,9 +107,12 @@ If[!DirectoryQ[Streaming`LazyList`$StreamingCacheBase],
 ]
 
 
-ListIterator /: MakeBoxes[liter_ListIterator, StandardForm] :=
+Streaming`DataStructures`DataTypes`ListIterator /: MakeBoxes[
+	liter_Streaming`DataStructures`DataTypes`ListIterator, 
+	StandardForm
+] :=
 	BoxForm`ArrangeSummaryBox[
-		ListIterator,
+		Streaming`DataStructures`DataTypes`ListIterator,
 		liter,
 		$IteratorIcon,
 		{
