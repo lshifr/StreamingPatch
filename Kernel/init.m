@@ -106,4 +106,22 @@ If[!DirectoryQ[Streaming`LazyList`$StreamingCacheBase],
     CreateDirectory[Streaming`LazyList`$StreamingCacheBase]
 ]
 
+
+ListIterator /: MakeBoxes[liter_ListIterator, StandardForm] :=
+	BoxForm`ArrangeSummaryBox[
+		ListIterator,
+		liter,
+		$IteratorIcon,
+		{
+			BoxForm`MakeSummaryItem[{"Type ", List}, StandardForm],
+			BoxForm`MakeSummaryItem[{
+				"Status: ", 
+				Dynamic[If[TrueQ @ IteratorActiveQ[liter], "Active", "Inactive"]]
+			}, StandardForm]
+		}
+    	,
+		{}, 
+    	StandardForm
+    ]	
+
 $ContextPath = DeleteCases[$ContextPath, "Streaming`DataStructures`Interfaces`"];
